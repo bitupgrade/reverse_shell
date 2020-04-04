@@ -2,7 +2,7 @@ import os
 import socket
 import subprocess
 
-host = '127.0.0.1'
+host = '127.0.0.1' # Uses localhost as host IP
 port = 9999
 s = socket.socket()
 s.connect((host, port))
