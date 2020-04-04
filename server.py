@@ -15,6 +15,8 @@ def socket_create():
         print("Socket creation error: " + str(msg))
 
 # Bind socket to port and wait for connection from client
+
+
 def socket_bind():
     try:
         global host
@@ -28,14 +30,18 @@ def socket_bind():
         socket_bind()
 
 # Establish connection with client
+
+
 def socket_accept():
     conn, address = s.accept()
     print("Connection has been established | " + "IP " +
-          address[0] + " | Port " + str(address[0]))
+          address[0] + " | Port " + str(address[1]))
     send_commands(conn)
     conn.close()
 
 # Send commands
+
+
 def send_commands(conn):
     while True:
         cmd = input()
